@@ -1,0 +1,140 @@
+1-git 
+
+TD #1
+
+-git clone git@github.com:floo51/PrivateBin.git
+-make install
+-make start
+
+Le serveur se lance en tapant localhost:8080 on retrouve PrivateBin
+
+TD #2
+
+Créer une branche : git branch autreBranche
+On va sur cette branche : git switch autreBranche
+
+On modifie le fichier lib/Configurations.php
+
+On effectue 2 commit avec git add -p 
+
+TD #3
+
+On fusionne les modifications faites sur la branche "autreBranche"
+
+Avec la commande : git merge autreBranche
+
+On peut observer que la branche principale possède les modifs faites sur la branche "autreBranche"
+
+TD #4 
+
+- On créer une nouvelle branche avec : git branch change-default-expiration
+- On va sur la branche : git switch change-default-expiration
+
+- On modifie le fichier lib/Configuration.php en passant le temps d'expiration par défault à un mois.
+- On fait : git add lib/Configuration.php 
+- Puis : git commit -m "Temps d'expiration par défault à un mois"
+
+- On reviens sur la branche main : git switch main
+- On modifie le fichier lib/Configuration avec un temps d'expiration par défault à un jour.
+- On fait : git add lib/Configuration.php 
+- Puis : git commit -m "Temps d'expiration par défault à un jour"
+
+- On tente la fusion des deux branches avec : git merge change-default-expiration
+- Cela nous dit qu'il y a un conflit, ce qui est logique.
+
+Dans le fichier lib/Configurations :
+
+<<<<<<< HEAD
+            'default' => '1day',
+=======
+            'default' => '1month',
+>>>>>>> change-default-expiration
+
+
+- On enlève ce que ne veut pas :
+
+            'default' => '1day',
+            
+
+- Pour enregistrer et dire qu'on a fini de gérer les conflits on fait : git add lib/Configurations
+- Puis git merge --continue
+
+#5
+
+On récupère la branche rename-to-charlebin : git switch rename-to-charlebin
+
+On cherche le commit qui rename la page en CharleBin au lieu de PrivateBin
+
+- on lance : git bisect start  
+- On lui dit que la branche est une version bien : git bisect good main
+Ainsi de suite quand c'est pas bon on dit : git bisect bad
+
+A la fin il nous renvoi le commit qui cause le problème comme ceci :
+
+f4eb0662a4778e192d9689dada5b347688e257dd is the first bad commit
+commit f4eb0662a4778e192d9689dada5b347688e257dd
+Author: Florian Ferbach <florian.ferbach@univ-lorraine.fr>
+Date:   Sat Jan 21 11:00:03 2023 +0100
+
+    Rename page title to CharleBin
+
+TD #6
+
+on lance le bisect : git bisect start
+on indique le bon : git bisect good origin/main
+on indique en étant sur la branche renale-to-charlebin : git bisect bad
+Puis on lance automatiquement la recherche du commit qui fait le bug avec : git bisect run make test
+
+2-github
+
+#1 Mettre en place une clé SSH pour éviter de taper son mdp à chaque push :
+
+	: ssh-keygen -t ed25519 -C "mathis54300fox@gmail.com" (AJOUTE NOTRE ADRESSE MAIL)
+	: ssh-add ~/.ssh/id_ed25519 (AJOUTE LA CLE PRIVEE)
+	: clip < ~/.ssh/id_ed25529.pub  ( PERMET DE COPIER LA CLE PUBLIQUE )
+	
+	Ensuite on va sur github et on ajoute une cle ssh dans les settings.
+
+On branche PrivateBin sur la branche principale de notre nouveau dépot "CharleBin" :  git remote set-url origin git@github.com:mathis54300/CharleBin.git
+
+Puis on push PrivateBin (main) vers CharleBin (main) : git push -f
+
+#2
+
+On a modifié le fichier config uniquement via le site github, donc pour rapatrier les changements sur notre working directory : git pull
+
+#3
+
+On crée et on va sur une nouvelle branche : git switch -C supprimerFooter
+
+on fait nos modif, puis on push sur notre dépot CharleBin la fonctionnalité supprimerFooter : git push -u origin supprimerFooter
+ 
+
+
+4-Dev tools
+
+#1 Intelephense bien installé
+
+#2 Github copilot bien installé
+
+#3 <input type="password" id="passwordinput" placeholder="Mot de passe (recommandé)" class="form-control" size="23">
+
+on supprime juste password dans le type :  type=""
+
+Et on voit maintenant le mdp
+ 
+
+5- debugueur
+
+#1 Pour lancer le serveur en mode debug : php -dxdebug.mode=debug -dxdebug.start_with_request=yes -S localhost:8080
+
+
+
+
+
+
+
+
+
+
+
