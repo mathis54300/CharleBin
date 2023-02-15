@@ -109,6 +109,9 @@ On crée et on va sur une nouvelle branche : git switch -C supprimerFooter
 
 on fait nos modif, puis on push sur notre dépot CharleBin la fonctionnalité supprimerFooter : git push -u origin supprimerFooter
  
+3-Linters
+
+#1
 
 
 4-Dev tools
