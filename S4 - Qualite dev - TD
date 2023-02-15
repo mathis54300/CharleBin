@@ -78,7 +78,7 @@ Date:   Sat Jan 21 11:00:03 2023 +0100
 
     Rename page title to CharleBin
 
-TD #6
+#6
 
 on lance le bisect : git bisect start
 on indique le bon : git bisect good origin/main
